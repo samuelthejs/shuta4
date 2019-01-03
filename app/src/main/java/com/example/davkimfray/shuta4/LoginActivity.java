@@ -68,20 +68,12 @@ public class LoginActivity extends AppCompatActivity {
                             txtErrorPass.setText("* Enter Password *");
 
 
-
-
-                            //new FetchStudentDetailsAsyncTask().execute();
                         }else{
                             txtErrorPass.setText("");
 
                             userName = txtUsername.getText().toString();
                             passWord = txtPassword.getText().toString();
-
-                            Intent i = new Intent(getApplicationContext(),
-                                    StudentTabbedActivity.class);
-                            i.putExtra(KEY_STU_ID, studentId);
-                            startActivity(i);
-                            finish();
+                            new FetchStudentDetailsAsyncTask().execute();
 
                         }
                     }
@@ -154,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                             StudentTabbedActivity.class);
                             i.putExtra(KEY_STU_ID, studentId);
                         startActivity(i);
+                        finish();
 
                     }
 
