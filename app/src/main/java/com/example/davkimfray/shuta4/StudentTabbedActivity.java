@@ -42,7 +42,7 @@ public class StudentTabbedActivity extends Activity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_NAME = "cla_name";
     private static final String KEY_REG_NO = "reg_no";
-    private static final String BASE_URL = "http://192.168.0.122/android/";
+    private static final String BASE_URL = "http://10.0.0.26/android/";
     private TabHost tabhost;
     private TextView txtView_stuName;
     private TextView txtView_stuRegNo;
@@ -171,7 +171,7 @@ public class StudentTabbedActivity extends Activity {
             if (success == 1) {
                 //Parse the JSON response
                 student = jsonObject.getJSONObject(KEY_DATA);
-                if(student.getString(KEY_M_NAME) == "null"){
+                if(student.getString(KEY_M_NAME).equals("null")){
                     stuName = student.getString(KEY_F_NAME) + " " +
                             student.getString(KEY_L_NAME);
                 }else{

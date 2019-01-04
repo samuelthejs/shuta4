@@ -7,7 +7,10 @@
     android:background="#1e2d44"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingLeft="20dp"
+    android:paddingTop="30dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="20dp"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -47,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableLeft="@mipmap/ic_launcher_round"
+            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
             android:drawablePadding="20dp"
             android:hint="Username"
             android:inputType="text"
@@ -76,7 +79,7 @@
             android:id="@+id/txt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_launcher_round"
+            android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="20dp"
             android:hint="Password"
             android:inputType="textPassword"
@@ -100,6 +103,9 @@
         android:layout_height="wrap_content"
         android:background="#5298E9"
         android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
         android:textStyle="italic" />
 
     <Button
@@ -108,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forgot Password?"
+        android:textAllCaps="false"
         android:textColor="#6dcff6"
         android:textStyle="italic" />
 
