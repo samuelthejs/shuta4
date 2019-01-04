@@ -3,6 +3,7 @@ package com.example.davkimfray.shuta4;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 
 public class Registration extends AppCompatActivity {
@@ -15,4 +16,8 @@ public class Registration extends AppCompatActivity {
 
     }
 
+    public void login(View view) {
+
+
+    }
 }
