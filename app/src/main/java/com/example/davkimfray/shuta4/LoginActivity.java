@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STU_ID = "stu_id";
     private static final String KEY_TEA_ID = "tea_id";
-    private static final String BASE_URL = "http://192.168.43.57/android/";
+    private static final String BASE_URL = "http://192.168.0.122/android/";
     private ProgressDialog pDialog;
     private EditText txtUsername, txtPassword;
     private TextView txtIncorectUserPass, txtErrorUser, txtErrorPass;
@@ -58,11 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
                     //validate username and password
-                  /*  Intent i = new Intent(getApplicationContext(),
-                            TeacherHomeActivity.class);
-                    // i.putExtra(KEY_STU_ID, studentId);
-                    startActivity(i);
-                    finish();*/
                     if(txtUsername.getText().toString().trim().isEmpty()){
                         txtErrorUser.setText("* Enter Username *");
                       //  requestFocus(txtUsername);
@@ -73,15 +68,13 @@ public class LoginActivity extends AppCompatActivity {
                             txtErrorPass.setText("* Enter Password *");
 
 
-
-
                         }else{
                             txtErrorPass.setText("");
 
                             userName = txtUsername.getText().toString();
                             passWord = txtPassword.getText().toString();
+                            new FetchStudentDetailsAsyncTask().execute();
 
-                            new FetchLoginDetailsAsyncTask().execute();
                         }
                     }
                 } else {
@@ -89,11 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
-//                    Intent i = new Intent(getApplicationContext(),
-//                            TeacherHomeActivity.class);
-//                    // i.putExtra(KEY_STU_ID, studentId);
-//                    startActivity(i);
-//                    finish();
+
                 }
 
 
@@ -103,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    private class FetchLoginDetailsAsyncTask extends AsyncTask<String, String, String> {
+    private class FetchStudentDetailsAsyncTask extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -143,19 +132,14 @@ public class LoginActivity extends AppCompatActivity {
           pDialog.dismiss();
             runOnUiThread(new Runnable() {
                 public void run() {
-                    //Redirect Teacher and student to their respective layout
+                    //Populate the Edit Texts once the network activity is finished executing
                     if(success == 0) {
                         txtIncorectUserPass.setText("* Incorrect Username or Password *");
                     }else if(teacherId != "null"){
                         txtIncorectUserPass.setText("");
-                       /* Toast.makeText(LoginActivity.this,
+                        Toast.makeText(LoginActivity.this,
                                 "You are a Teacher",
-                                Toast.LENGTH_LONG).show();*/
-                        Intent i = new Intent(getApplicationContext(),
-                                TeacherHomeActivity.class);
-                        i.putExtra(KEY_TEA_ID, teacherId);
-                        startActivity(i);
-                        finish();
+                                Toast.LENGTH_LONG).show();
                     }else{
                         txtIncorectUserPass.setText("");
                         Intent i = new Intent(getApplicationContext(),
@@ -163,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra(KEY_STU_ID, studentId);
                         startActivity(i);
                         finish();
+
                     }
 
                 }
