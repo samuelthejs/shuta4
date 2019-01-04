@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">shuta4</string>
+    <string name="app_name">Shuta</string>
+    <string name="title_activity_registration">Registration</string>
+    <string name="registration_header">SIGN UP</string>
 </resources>
