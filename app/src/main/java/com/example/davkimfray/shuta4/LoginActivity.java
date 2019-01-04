@@ -138,14 +138,14 @@ public class LoginActivity extends AppCompatActivity {
                     }else if(teacherId != "null"){
                         txtIncorectUserPass.setText("");
                         Intent i = new Intent(getApplicationContext(),TeacherHomeActivity.class);
-                       // i.putExtra(KEY_STU_ID, studentId);
+                        //i.putExtra(KEY_TEA_ID, teacherId);
                         startActivity(i);
                         finish();
                     }else{
                         txtIncorectUserPass.setText("");
                         Intent i = new Intent(getApplicationContext(),
                             StudentTabbedActivity.class);
-                        //    i.putExtra(KEY_STU_ID, studentId);
+                            i.putExtra(KEY_STU_ID, studentId);
                         startActivity(i);
                         finish();
 

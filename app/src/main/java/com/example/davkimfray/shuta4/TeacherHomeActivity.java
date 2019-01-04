@@ -1,6 +1,8 @@
 package com.example.davkimfray.shuta4;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +48,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent2);
                 break;
             case R.id.btn_staff:
-                Intent intent3 = new Intent(getApplicationContext(),TeacherProfileActivity.class);
+                Intent intent3 = new Intent(getApplicationContext(),Registration.class);
                 // i.putExtra(KEY_STU_ID, studentId);
                 startActivity(intent3);
                 break;
@@ -72,5 +74,26 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 break;
 
         }
+    }
+    @Override
+    public void onBackPressed(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(TeacherHomeActivity.this);
+        builder.setMessage("Are you sure, you want to Exit?");
+        builder.setCancelable(true);
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
