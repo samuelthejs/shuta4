@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_group_black_24dp"
             android:gravity="top|center_horizontal"
-            android:text="Events"
+            android:text="nyingine"
             android:textAllCaps="false" />
     </LinearLayout>
 

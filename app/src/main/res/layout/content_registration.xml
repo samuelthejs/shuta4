@@ -93,7 +93,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="3dp"
         android:layout_marginBottom="53dp"
-        android:background="@color/design_default_color_primary"
+        android:background="@color/clrButton"
         android:text="REGISTER"
         android:textColor="@color/color1"
         android:textSize="18sp"

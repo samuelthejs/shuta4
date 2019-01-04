@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STU_ID = "stu_id";
     private static final String KEY_TEA_ID = "tea_id";
-    private static final String BASE_URL = "http://192.168.0.122/android/";
+    private static final String BASE_URL = "http://192.168.43.57/android/";
     private ProgressDialog pDialog;
     private EditText txtUsername, txtPassword;
     private TextView txtIncorectUserPass, txtErrorUser, txtErrorPass;
@@ -137,14 +137,15 @@ public class LoginActivity extends AppCompatActivity {
                         txtIncorectUserPass.setText("* Incorrect Username or Password *");
                     }else if(teacherId != "null"){
                         txtIncorectUserPass.setText("");
-                        Toast.makeText(LoginActivity.this,
-                                "You are a Teacher",
-                                Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getApplicationContext(),TeacherHomeActivity.class);
+                       // i.putExtra(KEY_STU_ID, studentId);
+                        startActivity(i);
+                        finish();
                     }else{
                         txtIncorectUserPass.setText("");
                         Intent i = new Intent(getApplicationContext(),
                             StudentTabbedActivity.class);
-                            i.putExtra(KEY_STU_ID, studentId);
+                        //    i.putExtra(KEY_STU_ID, studentId);
                         startActivity(i);
                         finish();
 

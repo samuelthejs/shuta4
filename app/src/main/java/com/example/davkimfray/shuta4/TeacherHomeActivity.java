@@ -36,7 +36,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()){
             case R.id.btn_profile:
                 Intent intent1 = new Intent(getApplicationContext(),TeacherProfileActivity.class);
-                // i.putExtra(KEY_STU_ID, studentId);
+                // intent1.putExtra(KEY_STU_ID, studentId);
+                ///jhfgj
                 startActivity(intent1);
                 break;
             case R.id.btn_student:
