@@ -26,7 +26,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_NAME = "cla_name";
     private static final String KEY_REG_NO = "reg_no";
-    private static final String BASE_URL = "http://192.168.43.57/android/";
+    private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android";
     private TextView txtView_stuName;
     private TextView txtView_stuRegNo;
     private TextView txtView_gender;

@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STU_ID = "stu_id";
     private static final String KEY_TEA_ID = "tea_id";
-    private static final String BASE_URL = "http://192.168.43.57/android/";
+    private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android";
     private ProgressDialog pDialog;
     private EditText txtUsername, txtPassword;
     private TextView txtIncorectUserPass, txtErrorUser, txtErrorPass;
