@@ -42,7 +42,7 @@ public class StudentTabbedActivity extends Activity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_NAME = "cla_name";
     private static final String KEY_REG_NO = "reg_no";
-    private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android";
+    private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private TabHost tabhost;
     private TextView txtView_stuName;
     private TextView txtView_stuRegNo;
@@ -91,7 +91,6 @@ public class StudentTabbedActivity extends Activity {
 
         Intent intent = getIntent();
         studentId = intent.getStringExtra(KEY_STU_ID);
-     //   studentId="4";
 
 
 //

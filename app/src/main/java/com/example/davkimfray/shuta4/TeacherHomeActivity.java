@@ -43,7 +43,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent1);
                 break;
             case R.id.btn_student:
-                Intent intent2 = new Intent(getApplicationContext(),StudentResults.class);
+                Intent intent2 = new Intent(getApplicationContext(),StudentListingActivity.class);
                 // i.putExtra(KEY_STU_ID, studentId);
                 startActivity(intent2);
                 break;
@@ -53,7 +53,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent3);
                 break;
             case R.id.btn_results:
-                Intent intent4 = new Intent(getApplicationContext(),TeacherProfileActivity.class);
+                Intent intent4 = new Intent(getApplicationContext(),StudentResults.class);
                 // i.putExtra(KEY_STU_ID, studentId);
                 startActivity(intent4);
                 break;

@@ -26,7 +26,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_NAME = "cla_name";
     private static final String KEY_REG_NO = "reg_no";
-    private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android";
+    private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private TextView txtView_stuName;
     private TextView txtView_stuRegNo;
     private TextView txtView_gender;
@@ -54,8 +54,7 @@ public class StudentProfileActivity extends AppCompatActivity {
        // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
 
         Intent intent = getIntent();
-        // studentId = intent.getStringExtra(KEY_STU_ID);
-        studentId = "4";
+         studentId = intent.getStringExtra(KEY_STU_ID);
         new FetchStudentDetailsAsyncTask().execute();
     }
 

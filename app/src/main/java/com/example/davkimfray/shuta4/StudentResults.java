@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -50,11 +51,14 @@ public class StudentResults extends AppCompatActivity implements View.OnClickLis
                 if (layRes1.getVisibility() == View.VISIBLE){
                     layRes1.setAnimation(downtoup);
                     layRes1.setVisibility(View.GONE);
-                    btnRes1.setCompoundDrawables(null,null,downArrow,null);
+                    float deg = btnRes1.getRotation() + 180F;
+                    btnRes1.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
                 }else{
                     layRes1.setAnimation(uptodown);
                     layRes1.setVisibility(View.VISIBLE);
-                    btnRes1.setCompoundDrawables(null,null,upArrow,null);
+                    float deg = (btnRes1.getRotation() == 180F) ? 0F : 180F;
+                    btnRes1.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+
                 }
                 break;
 
@@ -62,11 +66,17 @@ public class StudentResults extends AppCompatActivity implements View.OnClickLis
                 if (layRes2.getVisibility() == View.VISIBLE){
                     layRes2.setAnimation(downtoup);
                     layRes2.setVisibility(View.GONE);
-                    btnRes2.setCompoundDrawables(null,null,downArrow,null);
+                    float deg = btnRes2.getRotation() + 180F;
+                    btnRes2.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    //   btnRes2.setCompoundDrawables(null,null,downArrow,null);
                 }else{
                     layRes2.setAnimation(uptodown);
                     layRes2.setVisibility(View.VISIBLE);
-                    btnRes2.setCompoundDrawables(null,null,upArrow,null);
+                    float deg = (btnRes2.getRotation() == 180F) ? 0F : 180F;
+                    btnRes2.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    //  btnRes2.setCompoundDrawables(null,null,upArrow,null);
                 }
                 break;
 
@@ -74,11 +84,17 @@ public class StudentResults extends AppCompatActivity implements View.OnClickLis
                 if (layRes3.getVisibility() == View.VISIBLE){
                     layRes3.setAnimation(downtoup);
                     layRes3.setVisibility(View.GONE);
-                    btnRes3.setCompoundDrawables(null,null,downArrow,null);
+                    float deg = btnRes3.getRotation() + 180F;
+                    btnRes3.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    //  btnRes3.setCompoundDrawables(null,null,downArrow,null);
                 }else{
                     layRes3.setAnimation(uptodown);
                     layRes3.setVisibility(View.VISIBLE);
-                    btnRes3.setCompoundDrawables(null,null,upArrow,null);
+                    float deg = (btnRes3.getRotation() == 180F) ? 0F : 180F;
+                    btnRes3.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    //  btnRes3.setCompoundDrawables(null,null,upArrow,null);
                 }
                 break;
 
@@ -86,11 +102,15 @@ public class StudentResults extends AppCompatActivity implements View.OnClickLis
                 if (layRes4.getVisibility() == View.VISIBLE){
                     layRes4.setAnimation(downtoup);
                     layRes4.setVisibility(View.GONE);
-                    btnRes4.setCompoundDrawables(null,null,downArrow,null);
+                    float deg = btnRes4.getRotation() + 180F;
+                    btnRes4.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                    //  btnRes4.setCompoundDrawables(null,null,downArrow,null);
                 }else{
                     layRes4.setAnimation(uptodown);
                     layRes4.setVisibility(View.VISIBLE);
-                    btnRes4.setCompoundDrawables(null,null,upArrow,null);
+                    float deg = (btnRes4.getRotation() == 180F) ? 0F : 180F;
+                    btnRes4.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                    // btnRes4.setCompoundDrawables(null,null,upArrow,null);
                 }
                 break;
         }

@@ -25,6 +25,7 @@
         <activity android:name=".TeacherHomeActivity"/>
         <activity android:name=".TeacherProfileActivity"/>
         <activity android:name=".StudentResults"/>
+        <activity android:name=".StudentListingActivity"/>
     </application>
 
 </manifest>
