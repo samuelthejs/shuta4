@@ -25,7 +25,13 @@
         <activity android:name=".TeacherHomeActivity"/>
         <activity android:name=".TeacherProfileActivity"/>
         <activity android:name=".StudentResults"/>
-        <activity android:name=".StudentListingActivity"/>
+        <activity android:name=".StudentListingActivity">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable">
+            </meta-data>
+        </activity>
+        <activity android:name=".StudentRegistration"/>
     </application>
 
 </manifest>

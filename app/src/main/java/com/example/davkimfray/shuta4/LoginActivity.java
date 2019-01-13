@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         txtErrorPass = findViewById(R.id.txt_error_pass);
         btnLogin = findViewById(R.id.btn_login);
 
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
