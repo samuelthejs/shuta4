@@ -1,11 +1,16 @@
 package com.example.davkimfray.shuta4;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.davkimfray.shuta4.helper.HttpJsonParser;
 
@@ -55,6 +60,73 @@ public class StudentProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
          studentId = intent.getStringExtra(KEY_STU_ID);
+
+
+        /**
+         * button results section
+         */
+        Button btnRes = findViewById(R.id.btn_res);
+        btnRes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentRes = new Intent(getApplicationContext(),StudentResults.class);
+                // i.putExtra(KEY_STU_ID, studentId);
+                startActivity(intentRes);
+            }
+        });
+
+
+        /**
+         * button edit section
+         */
+        Button btnEdit = findViewById(R.id.btn_edit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentEdit = new Intent(getApplicationContext(),StudentRegistration.class);
+                // i.putExtra(KEY_STU_ID, studentId);
+                startActivity(intentEdit);
+            }
+        });
+
+
+        /**
+         * button results section
+         */
+        Button btnDel = findViewById(R.id.btn_del);
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* Intent intentDel = new Intent(getApplicationContext(),StudentResults.class);
+                // i.putExtra(KEY_STU_ID, studentId);
+                startActivity(intentDel);*/
+
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfileActivity.this);
+                builder.setMessage("Are you sure, you want to Delete?");
+                builder.setCancelable(true);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //finish();
+                        Toast.makeText(StudentProfileActivity.this, "Weka function ya" +
+                                " kufuta", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            }
+        });
+
+
         new FetchStudentDetailsAsyncTask().execute();
     }
 

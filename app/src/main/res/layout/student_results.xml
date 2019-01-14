@@ -14,10 +14,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
+            android:background="#5298E9"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="Student Results"
-            app:titleTextColor="@color/colorAccent" />
+            app:titleTextColor="#ffffff" />
 
     </android.support.design.widget.AppBarLayout>
 

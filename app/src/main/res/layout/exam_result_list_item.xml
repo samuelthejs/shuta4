@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
-        android:background="@color/colorAccent"
+        android:background="#5298E9"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

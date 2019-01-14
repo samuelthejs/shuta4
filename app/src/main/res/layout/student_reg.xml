@@ -17,11 +17,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
+            android:background="#5298E9"
             android:paddingLeft="20dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="Student Registration"
-            app:titleTextColor="@color/clrButton" />
+            app:titleTextColor="#ffffff" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -165,17 +165,25 @@
                 android:layout_marginBottom="10dp"
                 android:prompt="@string/app_name" />
 
-            <Button
-                android:id="@+id/btn_stu_reg"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/colorAccent"
-                android:text="Register"
-                android:textAllCaps="false"
-                android:textColor="#ffffff"
-                android:textSize="18sp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_stu_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="#5298E9"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
