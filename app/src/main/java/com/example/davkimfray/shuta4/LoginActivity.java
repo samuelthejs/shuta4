@@ -3,6 +3,7 @@ package com.example.davkimfray.shuta4;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.preference.TwoStatePreference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;

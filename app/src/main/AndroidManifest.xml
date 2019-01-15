@@ -32,6 +32,8 @@
             </meta-data>
         </activity>
         <activity android:name=".StudentRegistration"/>
+        <activity android:name=".ClassListingActivity"/>
+        <activity android:name=".SubjectListingActivity"/>
     </application>
 
 </manifest>

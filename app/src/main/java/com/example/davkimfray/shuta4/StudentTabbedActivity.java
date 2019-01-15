@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -96,13 +97,12 @@ public class StudentTabbedActivity extends Activity {
 //
 
 
-        final Button button = findViewById(R.id.button);
-        l1 = (LinearLayout) findViewById(R.id.l1);
+        RecyclerView button = findViewById(R.id.recycler_results);
         uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
         downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
         //l1.setAnimation(uptodown);
 
-        button.setOnClickListener(new View.OnClickListener() {
+      /*  button.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
@@ -117,27 +117,8 @@ public class StudentTabbedActivity extends Activity {
             }
 
         });
+*/
 
-        // Spinner element
-
-        // Spinner click listener===spinner.setOnItemSelectedListener(this);
-
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Automobile");
-        categories.add("Business Services");
-        categories.add("Computers");
-        categories.add("Education");
-        categories.add("Personal");
-        categories.add("Travel");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
 
     new FetchStudentDetailsAsyncTask().execute();
 
