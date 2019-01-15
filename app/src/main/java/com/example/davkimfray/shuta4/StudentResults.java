@@ -53,14 +53,11 @@ public class StudentResults extends AppCompatActivity {
     private ProgressDialog pDialog;
 
     private List<Results> resultsList = new ArrayList<>();
+    TextView txtNoResults;
     private RecyclerView recyclerView;
     private ResultAdapter rAdapter;
 
-    Button btnRes1,btnRes2,btnRes3,btnRes4;
     ImageView imgBtnRes1;
-    LinearLayout layRes1,layRes2,layRes3,layRes4;
-    Animation uptodown,downtoup;
-    Drawable upArrow,downArrow;
 
     String studentId;
     int examIdCount = 0;
@@ -69,23 +66,19 @@ public class StudentResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_results);
 
+        txtNoResults = findViewById(R.id.txt_no_results);
         recyclerView = findViewById(R.id.recycler_results);
         imgBtnRes1 = findViewById(R.id.img_btn_res1);
-
         rAdapter = new ResultAdapter(resultsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(rAdapter);
 
-        uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
-        downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
-        upArrow = getResources().getDrawable(android.R.drawable.arrow_up_float);
-        downArrow = getResources().getDrawable(android.R.drawable.arrow_down_float);
 
-       /* Intent intent = getIntent();
-        studentId = intent.getStringExtra(KEY_STU_ID);*/
-       studentId = "1";
+        Intent intent = getIntent();
+        studentId = intent.getStringExtra(KEY_STU_ID);
+      // studentId = "1";
         new FetchResultsAsyncTask().execute();
 
         recyclerView.setAdapter(rAdapter);
@@ -95,7 +88,7 @@ public class StudentResults extends AppCompatActivity {
 
 
     /**
-     * Fetches the list of student from the server
+     * Fetches the list of results from the server
      */
     private class FetchResultsAsyncTask extends AsyncTask<String, String, String> {
         @Override
@@ -122,13 +115,16 @@ public class StudentResults extends AppCompatActivity {
                 if (success == 1) {
                     results = jsonObject.getJSONArray(KEY_DATA);
                     //Iterate through the response and populate student list
-                    for (int i = 0; i < results.length(); i++) {
-                        JSONObject result = results.getJSONObject(i);
-                        Results res = new Results(result.getInt("exa_id"), result.getString("exa_name"),
-                            result.getString("sub_name"), Double.parseDouble(result.getString("marks")));
-                        resultsList.add(res);
-                    }
-                   // rAdapter.notifyDataSetChanged();
+                        for (int i = 0; i < results.length(); i++) {
+                            JSONObject result = results.getJSONObject(i);
+                            Results res = new Results(result.getInt("exa_id"), result.getString("exa_name"),
+                                    result.getString("sub_name"), Double.parseDouble(result.getString("marks")));
+                            resultsList.add(res);
+                        }
+
+                }else {
+                    txtNoResults.setVisibility(View.VISIBLE);
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

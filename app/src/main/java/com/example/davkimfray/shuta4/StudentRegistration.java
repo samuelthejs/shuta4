@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.davkimfray.shuta4.helper.CheckNetworkStatus;
@@ -44,6 +45,7 @@ public class StudentRegistration extends AppCompatActivity {
     private ProgressDialog pDialog;
     DatePickerDialog dobPicker;
     EditText txtDob, txtFname, txtMname, txtLname, txtRegNo;
+    TextView txtErrorLname, txtErrorFname, txtErrorRegno, txtErrorDob, txtErrorGender;
     RadioGroup radGender;
     RadioButton radiosex;
     Spinner spinnerClaId;
@@ -62,6 +64,11 @@ public class StudentRegistration extends AppCompatActivity {
         txtLname = findViewById(R.id.txt_lname);
         txtRegNo = findViewById(R.id.txt_reg_no);
         radGender = findViewById(R.id.rad_gender);
+        txtErrorLname = findViewById(R.id.txt_erroe_lname);
+        txtErrorFname = findViewById(R.id.txt_erroe_fname);
+        txtErrorRegno = findViewById(R.id.txt_erroe_regno);
+        txtErrorDob = findViewById(R.id.txt_erroe_dob);
+        txtErrorGender = findViewById(R.id.txt_erroe_gender);
         txtDob = findViewById(R.id.txt_dob);
         txtDob.setInputType(InputType.TYPE_NULL);
         spinnerClaId = findViewById(R.id.spinner_cla_id);
@@ -152,16 +159,48 @@ public class StudentRegistration extends AppCompatActivity {
                  */
                 int selectedRadio = radGender.getCheckedRadioButtonId();
                 radiosex = findViewById(selectedRadio);
-                gender = radiosex.getText().toString();
+              //  gender = radiosex.getText().toString();
 
-                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                    //calling class addstudent
-                    new AddStudentAsyncTask().execute();
-                } else {
-                    Toast.makeText(StudentRegistration.this,
-                            "Unable to connect to internet",
-                            Toast.LENGTH_LONG).show();
+
+                //checking for mandatory values
+                if(txtLname.getText().toString().trim().isEmpty()) {
+                    txtErrorLname.setText("*Enter Lastname*");
+                    txtLname.setFocusable(true);
+                }else{
+
+                    txtErrorLname.setText("");
+                    if(txtFname.getText().toString().trim().isEmpty()) {
+                        txtErrorFname.setText("*Enter Firststname*");
+                        txtFname.setFocusable(true);
+                    }else{
+
+                        txtErrorFname.setText("");
+                        if (txtRegNo.getText().toString().trim().isEmpty()) {
+                            txtErrorRegno.setText("*Enter Reg NO*");
+                            txtRegNo.setFocusable(true);
+                        }else{
+
+                            txtErrorRegno.setText("");
+                            if (txtDob.getText().toString().trim().isEmpty()) {
+                                txtErrorDob.setText("*Enter Date of Birth*");
+                                txtDob.setFocusable(true);
+                            }else{
+
+                                txtErrorDob.setText("");
+                                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
+                                    //calling class addstudent
+                                    new AddStudentAsyncTask().execute();
+                                } else {
+                                    Toast.makeText(StudentRegistration.this,
+                                            "Unable to connect to internet",
+                                            Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+                        }
+                    }
                 }
+
             }
         });
 

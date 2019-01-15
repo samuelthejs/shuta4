@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import com.example.davkimfray.shuta4.helper.HttpJsonParser;
 import com.transitionseverywhere.TransitionManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +62,14 @@ public class StudentTabbedActivity extends Activity {
     private String claName;
     private String regNo;
 
+    /**
+     * Results tab declaration
+     */
+    private ArrayList<HashMap<String, String>> resultList, marksList;
+    private List<Results> resultsList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ResultAdapter rAdapter;
+
     int inc=0;
     LinearLayout l1,l2;
     Animation uptodown,downtoup;
@@ -90,37 +101,23 @@ public class StudentTabbedActivity extends Activity {
         // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
 
 
+        //getting student ID from the login activity
         Intent intent = getIntent();
         studentId = intent.getStringExtra(KEY_STU_ID);
 
 
-//
+        recyclerView = findViewById(R.id.recycler_results);
+        //imgBtnRes1 = findViewById(R.id.img_btn_res1);
+        rAdapter = new ResultAdapter(resultsList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(rAdapter);
+
+        recyclerView.setAdapter(rAdapter);
 
 
-        RecyclerView button = findViewById(R.id.recycler_results);
-        uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
-        downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
-        //l1.setAnimation(uptodown);
-
-      /*  button.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-                inc++;
-                if(inc ==1) {
-                    l1.setAnimation(uptodown);
-                }else if(inc == 2) {
-                    l1.setAnimation(downtoup);
-                }
-               // button.setText("jgjjjfhfhfhgfgh");
-            }
-
-        });
-*/
-
-
-    new FetchStudentDetailsAsyncTask().execute();
+       new FetchStudentDetailsAsyncTask().execute();
 
     }
 
@@ -143,14 +140,18 @@ public class StudentTabbedActivity extends Activity {
         HttpJsonParser httpJsonParser = new HttpJsonParser();
         Map<String, String> httpParams = new HashMap<>();
         httpParams.put(KEY_STU_ID, studentId);
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+
+        /**
+         * getting student profile
+         */
+        JSONObject jsonObjectProfile = httpJsonParser.makeHttpRequest(
                 BASE_URL + "get_student_details.php", "GET", httpParams);
         try {
-            int success = jsonObject.getInt(KEY_SUCCESS);
+            int success = jsonObjectProfile.getInt(KEY_SUCCESS);
             JSONObject student;
             if (success == 1) {
                 //Parse the JSON response
-                student = jsonObject.getJSONObject(KEY_DATA);
+                student = jsonObjectProfile.getJSONObject(KEY_DATA);
                 if(student.getString(KEY_M_NAME).equals("null")){
                     stuName = student.getString(KEY_F_NAME) + " " +
                             student.getString(KEY_L_NAME);
@@ -163,6 +164,30 @@ public class StudentTabbedActivity extends Activity {
                 claName = student.getString(KEY_CLA_NAME);
                 dob = student.getString(KEY_DOB);
                 regNo = student.getString(KEY_REG_NO);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        /**
+         * getting student results
+         */
+        JSONObject jsonObjectResults = httpJsonParser.makeHttpRequest(
+                BASE_URL + "get_student_results.php", "GET", httpParams);
+        try {
+            int success = jsonObjectResults.getInt(KEY_SUCCESS);
+            JSONArray results;
+            if (success == 1) {
+                results = jsonObjectResults.getJSONArray(KEY_DATA);
+                //Iterate through the response and populate student list
+                for (int i = 0; i < results.length(); i++) {
+                    JSONObject result = results.getJSONObject(i);
+                    Results res = new Results(result.getInt("exa_id"), result.getString("exa_name"),
+                            result.getString("sub_name"), Double.parseDouble(result.getString("marks")));
+                    resultsList.add(res);
+                }
+                // rAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {
             e.printStackTrace();

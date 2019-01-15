@@ -58,7 +58,7 @@ public class StudentProfileActivity extends AppCompatActivity {
         txtView_dob = findViewById(R.id.txt_dob);
        // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
          studentId = intent.getStringExtra(KEY_STU_ID);
 
 
@@ -70,7 +70,7 @@ public class StudentProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentRes = new Intent(getApplicationContext(),StudentResults.class);
-                // i.putExtra(KEY_STU_ID, studentId);
+                intentRes.putExtra(KEY_STU_ID, studentId);
                 startActivity(intentRes);
             }
         });
