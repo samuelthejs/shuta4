@@ -4,21 +4,31 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.davkimfray.shuta4.helper.HttpJsonParser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentProfileActivity extends AppCompatActivity {
     private static final String KEY_SUCCESS = "success";
@@ -31,12 +41,14 @@ public class StudentProfileActivity extends AppCompatActivity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_NAME = "cla_name";
     private static final String KEY_REG_NO = "reg_no";
+    private static final String KEY_STU_IMAGE = "stu_image";
     private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private TextView txtView_stuName;
     private TextView txtView_stuRegNo;
     private TextView txtView_gender;
     private TextView txtView_claName;
     private TextView txtView_dob;
+    private CircleImageView profileImage;
    // private TextView txtView_stuRegNo;
     private ProgressDialog pDialog;
     private String studentId;
@@ -44,7 +56,8 @@ public class StudentProfileActivity extends AppCompatActivity {
     private String gender;
     private String dob;
     private String claName;
-    private String regNo;
+    private String regNo, stuImage;
+    private StorageReference storageReference;
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -56,7 +69,10 @@ public class StudentProfileActivity extends AppCompatActivity {
         txtView_gender = findViewById(R.id.txt_gender);
         txtView_claName = findViewById(R.id.txt_claName);
         txtView_dob = findViewById(R.id.txt_dob);
+        profileImage = findViewById(R.id.profile_image);
        // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         final Intent intent = getIntent();
          studentId = intent.getStringExtra(KEY_STU_ID);
@@ -91,7 +107,7 @@ public class StudentProfileActivity extends AppCompatActivity {
 
 
         /**
-         * button results section
+         * button delete section
          */
         Button btnDel = findViewById(R.id.btn_del);
         btnDel.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +184,9 @@ public class StudentProfileActivity extends AppCompatActivity {
                     claName = student.getString(KEY_CLA_NAME);
                     dob = student.getString(KEY_DOB);
                     regNo = student.getString(KEY_REG_NO);
+                    stuImage = student.getString(KEY_STU_IMAGE);
+
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -185,6 +204,21 @@ public class StudentProfileActivity extends AppCompatActivity {
                     txtView_gender.setText(gender);
                     txtView_claName.setText(claName);
                     txtView_dob.setText(dob);
+
+                    //fetch image url from firebase
+                    storageReference.child("/"+stuImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            Glide.with(StudentProfileActivity.this).load(uri).into(profileImage);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
                 }
             });

@@ -64,7 +64,7 @@ public class StudentListingActivity extends AppCompatActivity {
                 startActivity(regStudent);
             }
         });
-        new FetchMoviesAsyncTask().execute();
+        new FetchStudentAsyncTask().execute();
 
 
 
@@ -73,7 +73,7 @@ public class StudentListingActivity extends AppCompatActivity {
     /**
      * Fetches the list of student from the server
      */
-    private class FetchMoviesAsyncTask extends AsyncTask<String, String, String> {
+    private class FetchStudentAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();

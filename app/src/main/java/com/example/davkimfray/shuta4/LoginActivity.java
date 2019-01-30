@@ -52,7 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         txtErrorUser = findViewById(R.id.txt_erroe_user);
         txtErrorPass = findViewById(R.id.txt_error_pass);
         btnLogin = findViewById(R.id.btn_login);
-
+/*
+        Intent i = new Intent(getApplicationContext(),
+                TeacherHomeActivity.class);
+        i.putExtra(KEY_STU_ID, studentId);
+        startActivity(i);
+*/
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

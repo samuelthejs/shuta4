@@ -2,17 +2,25 @@ package com.example.davkimfray.shuta4;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -21,15 +29,23 @@ import android.widget.Toast;
 
 import com.example.davkimfray.shuta4.helper.CheckNetworkStatus;
 import com.example.davkimfray.shuta4.helper.HttpJsonParser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentRegistration extends AppCompatActivity {
 
@@ -41,6 +57,7 @@ public class StudentRegistration extends AppCompatActivity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_ID = "cla_id";
     private static final String KEY_REG_NO = "reg_no";
+    private static final String KEY_STU_IMAGE = "stu_image";
     private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private ProgressDialog pDialog;
     DatePickerDialog dobPicker;
@@ -50,9 +67,21 @@ public class StudentRegistration extends AppCompatActivity {
     RadioButton radiosex;
     Spinner spinnerClaId;
     Button btnStuReg;
-    String classSelected, classId, gender;
+    FloatingActionButton buttonChoose;
+    CircleImageView profilePic;
+    String classSelected, classId, gender, imgName;
     private  int success;
 
+
+    // constant to track image chooser intent
+    private static final int PICK_IMAGE_REQUEST = 234;
+
+    //uri to store file
+    private Uri filePath;
+
+    //firebase objects
+    private StorageReference storageReference;
+    StorageReference sRef;
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -72,7 +101,10 @@ public class StudentRegistration extends AppCompatActivity {
         txtDob = findViewById(R.id.txt_dob);
         txtDob.setInputType(InputType.TYPE_NULL);
         spinnerClaId = findViewById(R.id.spinner_cla_id);
+        profilePic = findViewById(R.id.img_profile_pic);
         btnStuReg = findViewById(R.id.btn_stu_reg);
+        buttonChoose = findViewById(R.id.btn_upload_img);
+
 
 
         /**
@@ -189,6 +221,8 @@ public class StudentRegistration extends AppCompatActivity {
                                 txtErrorDob.setText("");
                                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
                                     //calling class addstudent
+                                   // uploadFile();
+
                                     new AddStudentAsyncTask().execute();
                                 } else {
                                     Toast.makeText(StudentRegistration.this,
@@ -204,11 +238,44 @@ public class StudentRegistration extends AppCompatActivity {
             }
         });
 
+
+
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
+
     }
 
 
+    public String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                profilePic.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
-     * Adding student section using Async Task
+      * Adding student section using Async Task
      */
     private class AddStudentAsyncTask extends AsyncTask<String, String, String> {
 
@@ -225,6 +292,37 @@ public class StudentRegistration extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+            imgName = System.currentTimeMillis() + "." + getFileExtension(filePath);
+            Toast.makeText(StudentRegistration.this, imgName,Toast.LENGTH_LONG).show();
+
+            //checking if file is available
+           /* if (filePath != null) {
+                //displaying progress dialog while image is uploading
+
+                //getting the storage reference
+                sRef = storageReference.child(imgName);
+
+                //adding the file to reference
+                sRef.putFile(filePath)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                //displaying success toast
+                                Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+            } else {
+                //display an error if no file is selected
+            }*/
+
+
            /* Toast.makeText(StudentRegistration.this, "Failed to add " +
                     "student", Toast.LENGTH_SHORT).show();*/
            HttpJsonParser httpJsonParser = new HttpJsonParser();
@@ -235,6 +333,7 @@ public class StudentRegistration extends AppCompatActivity {
             httpParams.put(KEY_GENDER, gender);
             httpParams.put(KEY_DOB, txtDob.getText().toString());
             httpParams.put(KEY_REG_NO, txtRegNo.getText().toString());
+            httpParams.put(KEY_STU_IMAGE, imgName);
             httpParams.put(KEY_CLA_ID, classId);
             JSONObject jsonObject = httpJsonParser.makeHttpRequest(
                     BASE_URL + "add_student.php", "POST", httpParams);
@@ -272,4 +371,39 @@ public class StudentRegistration extends AppCompatActivity {
         }
     }
 
+
+
+
+
+
+    private void uploadFile() {
+        //checking if file is available
+        if (filePath != null) {
+            //displaying progress dialog while image is uploading
+
+            Toast.makeText(this, imgName,Toast.LENGTH_LONG).show();
+            //getting the storage reference
+            sRef = storageReference.child(imgName);
+
+            //adding the file to reference
+            sRef.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            //displaying success toast
+                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } else {
+            //display an error if no file is selected
+        }
+    }
 }
