@@ -48,7 +48,7 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent2);
                 break;
             case R.id.btn_staff:
-                Intent intent3 = new Intent(getApplicationContext(),Registration.class);
+                Intent intent3 = new Intent(getApplicationContext(),staffView.class);
                 // i.putExtra(KEY_STU_ID, studentId);
                 startActivity(intent3);
                 break;
