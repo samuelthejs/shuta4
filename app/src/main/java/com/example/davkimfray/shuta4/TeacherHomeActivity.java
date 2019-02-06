@@ -11,6 +11,9 @@ import android.widget.Button;
 
 public class TeacherHomeActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String KEY_ADMIN_ID = "admin_id";
+
+    String adminId;
     Button btnProfile,btnStudent,btnStaff,btnResults,btnClass,btnEvent,btnSubject;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -22,7 +25,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
         btnStudent = findViewById(R.id.btn_student);
         btnStaff = findViewById(R.id.btn_staff);
         btnResults = findViewById(R.id.btn_results);
-        btnEvent = findViewById(R.id.btn_event);
 
         btnProfile.setOnClickListener(this);
         btnClass.setOnClickListener(this);
@@ -30,7 +32,10 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
         btnStudent.setOnClickListener(this);
         btnStaff.setOnClickListener(this);
         btnResults.setOnClickListener(this);
-        btnEvent.setOnClickListener(this);
+
+
+        final Intent intent = getIntent();
+        adminId = intent.getStringExtra(KEY_ADMIN_ID);
     }
 
     @Override
@@ -48,8 +53,8 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent2);
                 break;
             case R.id.btn_staff:
-                Intent intent3 = new Intent(getApplicationContext(),staffView.class);
-                // i.putExtra(KEY_STU_ID, studentId);
+                Intent intent3 = new Intent(getApplicationContext(),TeacherListingActivity.class);
+                intent3.putExtra(KEY_ADMIN_ID, adminId);
                 startActivity(intent3);
                 break;
             case R.id.btn_results:
@@ -66,11 +71,6 @@ public class TeacherHomeActivity extends AppCompatActivity implements View.OnCli
                 Intent intent6 = new Intent(getApplicationContext(),ClassListingActivity.class);
                 // i.putExtra(KEY_STU_ID, studentId);
                 startActivity(intent6);
-                break;
-            case R.id.btn_event:
-                Intent intent7 = new Intent(getApplicationContext(),TeacherProfileActivity.class);
-                // i.putExtra(KEY_STU_ID, studentId);
-                startActivity(intent7);
                 break;
 
         }

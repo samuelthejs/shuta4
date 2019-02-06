@@ -1,13 +1,23 @@
 package com.example.davkimfray.shuta4;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class staffView extends AppCompatActivity {
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+
+public class Registration extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_staff_view);
+        setContentView(R.layout.activity_class_registration);
+
+
+    }
+
+    public void login(View view) {
+
+
     }
 }

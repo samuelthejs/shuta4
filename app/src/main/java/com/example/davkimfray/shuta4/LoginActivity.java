@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STU_ID = "stu_id";
     private static final String KEY_TEA_ID = "tea_id";
+    private static final String KEY_ADMIN_ID = "admin_id";
     private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private ProgressDialog pDialog;
     private EditText txtUsername, txtPassword;
@@ -145,10 +146,10 @@ public class LoginActivity extends AppCompatActivity {
                     }else if(teacherId != "null"){
                         txtIncorectUserPass.setText("");
                         Intent i = new Intent(getApplicationContext(),TeacherHomeActivity.class);
-                        //i.putExtra(KEY_TEA_ID, teacherId);
+                        i.putExtra(KEY_ADMIN_ID, "");
                         startActivity(i);
                         finish();
-                    }else{
+                    }else if(studentId != "null"){
                         txtIncorectUserPass.setText("");
                         Intent i = new Intent(getApplicationContext(),
                             StudentTabbedActivity.class);
@@ -156,6 +157,12 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
 
+                    }else {
+                        txtIncorectUserPass.setText("");
+                        Intent admin = new Intent(getApplicationContext(),TeacherHomeActivity.class);
+                        admin.putExtra(KEY_ADMIN_ID, "admin");
+                        startActivity(admin);
+                        finish();
                     }
 
                 }

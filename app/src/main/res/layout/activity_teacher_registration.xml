@@ -20,7 +20,7 @@
             android:background="#5298E9"
             android:paddingLeft="20dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Student Registration"
+            app:title="Teacher Registration"
             app:titleTextColor="#ffffff" />
 
     </android.support.design.widget.AppBarLayout>
@@ -34,52 +34,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="30dp"
-            android:paddingTop="8dp"
+            android:paddingTop="30dp"
             android:paddingRight="30dp"
             android:paddingBottom="30dp">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_profile_pic"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:elevation="10dp"
-                    android:fadingEdge="horizontal|vertical"
-                    android:fadingEdgeLength="10dp"
-                    android:foregroundGravity="center"
-                    android:requiresFadingEdge="horizontal|vertical"
-                    android:src="@mipmap/user_login_icon"
-                    app:civ_border_color="#5298E9"
-                    app:civ_border_width="3dp"
-                    app:civ_circle_background_color="#ffffff"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/btn_upload_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="108dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    app:backgroundTint="#5298E9"
-                    app:elevation="20dp"
-                    app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.686"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.946"
-                    app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
-            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView7"
@@ -175,6 +132,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="7dp"
                 android:text="Gender"
                 android:textSize="18sp" />
 
@@ -214,20 +172,6 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Date of Birth"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/txt_dob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="date" />
-
-            <TextView
                 android:id="@+id/txt_erroe_dob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,12 +208,12 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:background="#5298E9"
-                    android:fontFamily="serif"
-                    android:text="Add Student"
+                    android:text="Add Teacher"
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="24sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:typeface="serif" />
             </LinearLayout>
 
         </LinearLayout>

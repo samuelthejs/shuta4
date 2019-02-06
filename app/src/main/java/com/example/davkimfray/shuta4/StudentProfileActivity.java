@@ -49,6 +49,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private TextView txtView_claName;
     private TextView txtView_dob;
     private CircleImageView profileImage;
+    private ImageView profileImageBg;
    // private TextView txtView_stuRegNo;
     private ProgressDialog pDialog;
     private String studentId;
@@ -70,7 +71,9 @@ public class StudentProfileActivity extends AppCompatActivity {
         txtView_claName = findViewById(R.id.txt_claName);
         txtView_dob = findViewById(R.id.txt_dob);
         profileImage = findViewById(R.id.profile_image);
-       // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
+        profileImageBg = findViewById(R.id.bg_profile_img);
+
+        // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -186,7 +189,15 @@ public class StudentProfileActivity extends AppCompatActivity {
                     regNo = student.getString(KEY_REG_NO);
                     stuImage = student.getString(KEY_STU_IMAGE);
 
-
+                    //fetch image url from firebase
+                    storageReference.child("/"+stuImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            Glide.with(StudentProfileActivity.this).load(uri).into(profileImage);
+                            Glide.with(StudentProfileActivity.this).load(uri).into(profileImageBg);
+                        }
+                    });
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -205,20 +216,7 @@ public class StudentProfileActivity extends AppCompatActivity {
                     txtView_claName.setText(claName);
                     txtView_dob.setText(dob);
 
-                    //fetch image url from firebase
-                    storageReference.child("/"+stuImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            // Got the download URL for 'users/me/profile.png'
-                            Glide.with(StudentProfileActivity.this).load(uri).into(profileImage);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle any errors
-                            Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-                        }
-                    });
+
 
                 }
             });

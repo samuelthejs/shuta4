@@ -5,12 +5,15 @@ package com.example.davkimfray.shuta4;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
@@ -34,21 +37,24 @@ public class SubjectListingActivity extends AppCompatActivity {
     private ListView subjectListView;
     private ProgressDialog pDialog;
     private SimpleAdapter subjectListAdapter;
+    private Button btnSubReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_listing);
         subjectListView = findViewById(R.id.subject_list);
+        btnSubReg = findViewById(R.id.btn_class_reg);
 
-     /*   FloatingActionButton studentReg = findViewById(R.id.float_student_reg);
-        studentReg.setOnClickListener(new View.OnClickListener() {
+        btnSubReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent regStudent = new Intent(getApplicationContext(), StudentRegistration.class);
-                startActivity(regStudent);
+                Intent regClass = new Intent(getApplicationContext(), SubjectRegistrationActivity.class);
+                startActivity(regClass);
             }
-        });*/
+        });
+
+    
       new FetchClassesAsyncTask().execute();
 
 

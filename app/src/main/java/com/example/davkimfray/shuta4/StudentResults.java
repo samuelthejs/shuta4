@@ -148,19 +148,18 @@ public class StudentResults extends AppCompatActivity {
      * Updating parsed JSON data into ListView
      * */
     private void populateResultsList() {
-      /*  ListAdapter examAdapter = new SimpleAdapter(StudentResults.this, resultList,
+       ListAdapter examAdapter = new SimpleAdapter(StudentResults.this, resultList,
                 R.layout.exam_result_list_item, new String[]{KEY_EXA_NAME}, new int[]{R.id.txt_exa_name});
 
         ListAdapter marksAdapter = new SimpleAdapter(StudentResults.this, resultList,
                 R.layout.marks_result_list_item, new String[]{KEY_SUB_NAME, KEY_GRADE,
                 KEY_MARKS}, new int[]{R.id.txt_sub_name, R.id.txt_grade, R.id.txt_marks});
 
-
         // updating listview
 
 
         //  display marks when an exam is clicked
-        examListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     /*   examListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -168,8 +167,8 @@ public class StudentResults extends AppCompatActivity {
                 view.findViewById(R.id.img_btn_res1).animate().rotation(deg).setInterpolator(
                         new AccelerateDecelerateInterpolator());
 
-            }
-         *//*   @Override
+            }*/
+     /*       @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Check for network connectivity
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
@@ -185,8 +184,8 @@ public class StudentResults extends AppCompatActivity {
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
                 }
-            }*//*
-        });*/
+            }*/
+        }
     }
 
-}
+

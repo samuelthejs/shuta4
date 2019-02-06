@@ -15,6 +15,7 @@ package com.example.davkimfray.shuta4;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.AdapterView;
+        import android.widget.Button;
         import android.widget.ListView;
         import android.widget.SearchView;
         import android.widget.SimpleAdapter;
@@ -38,6 +39,7 @@ public class ClassListingActivity extends AppCompatActivity {
     private static final String KEY_F_NAME = "f_name";
     private static final String KEY_M_NAME = "m_name";
     private static final String KEY_L_NAME = "l_name";
+    private static final String KEY_STU_NO = "stu_no";
     private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private ArrayList<HashMap<String, String>> classList;
     private ListView classListView;
@@ -45,21 +47,24 @@ public class ClassListingActivity extends AppCompatActivity {
     private MenuItem searchMenuItem;
     private SearchView searchView;
     private SimpleAdapter classListAdapter;
+    private Button classReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_listing);
         classListView = findViewById(R.id.classList);
+        classReg = findViewById(R.id.btn_class_reg);
 
-     /*   FloatingActionButton studentReg = findViewById(R.id.float_student_reg);
-        studentReg.setOnClickListener(new View.OnClickListener() {
+        classReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent regStudent = new Intent(getApplicationContext(), StudentRegistration.class);
-                startActivity(regStudent);
+                Intent regClass = new Intent(getApplicationContext(), ClassRegistrationActivity.class);
+                startActivity(regClass);
             }
-        });*/
+        });
+
+
       new FetchClassesAsyncTask().execute();
 
 
@@ -104,11 +109,13 @@ public class ClassListingActivity extends AppCompatActivity {
                         }
 
                         String lName = darasa.getString(KEY_L_NAME);
+                        String stuNo = darasa.getString(KEY_STU_NO);
                         HashMap<String, String> map = new HashMap<String, String>();
                         map.put(KEY_CLA_NAME, claName);
                         map.put(KEY_F_NAME, fName);
                         map.put(KEY_M_NAME, mName);
                         map.put(KEY_L_NAME, lName);
+                        map.put(KEY_STU_NO, stuNo);
                         classList.add(map);
                     }
                 }
@@ -134,8 +141,8 @@ public class ClassListingActivity extends AppCompatActivity {
      */
     private void populateStudentList() {
         classListAdapter = new SimpleAdapter(ClassListingActivity.this, classList,
-                R.layout.class_list_item, new String[]{KEY_CLA_NAME, KEY_F_NAME, KEY_M_NAME, KEY_L_NAME },
-                 new int[]{R.id.txt_class_name, R.id.txt_tea_fname, R.id.txt_tea_mname, R.id.txt_tea_lname });
+                R.layout.class_list_item, new String[]{KEY_CLA_NAME, KEY_F_NAME, KEY_M_NAME, KEY_L_NAME, KEY_STU_NO },
+                 new int[]{R.id.txt_class_name, R.id.txt_tea_fname, R.id.txt_tea_mname, R.id.txt_tea_lname, R.id.txt_stu_no });
         // updating listview
         classListView.setAdapter(classListAdapter);
     }

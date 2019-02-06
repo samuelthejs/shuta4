@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +18,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.davkimfray.shuta4.helper.HttpJsonParser;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.transitionseverywhere.TransitionManager;
 
 import org.json.JSONArray;
@@ -34,6 +40,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentTabbedActivity extends Activity {
     private static final String KEY_SUCCESS = "success";
@@ -46,6 +54,7 @@ public class StudentTabbedActivity extends Activity {
     private static final String KEY_DOB = "dob";
     private static final String KEY_CLA_NAME = "cla_name";
     private static final String KEY_REG_NO = "reg_no";
+    private static final String KEY_STU_IMAGE = "stu_image";
     private static final String BASE_URL = "https://davkimfray.000webhostapp.com/android/";
     private TabHost tabhost;
     private TextView txtView_stuName;
@@ -60,7 +69,7 @@ public class StudentTabbedActivity extends Activity {
     private String gender;
     private String dob;
     private String claName;
-    private String regNo;
+    private String regNo, stuImage;
 
     /**
      * Results tab declaration
@@ -69,7 +78,9 @@ public class StudentTabbedActivity extends Activity {
     private List<Results> resultsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ResultAdapter rAdapter;
-
+    private StorageReference storageReference;
+    private CircleImageView profileImage;
+    private ImageView profileImageBg;
     int inc=0;
     LinearLayout l1,l2;
     Animation uptodown,downtoup;
@@ -78,6 +89,8 @@ public class StudentTabbedActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_tabbed);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         tabhost = findViewById(R.id.tabhost);
         tabhost.setup();
@@ -98,6 +111,9 @@ public class StudentTabbedActivity extends Activity {
         txtView_gender = findViewById(R.id.txt_gender);
         txtView_claName = findViewById(R.id.txt_claName);
         txtView_dob = findViewById(R.id.txt_dob);
+        profileImage = findViewById(R.id.profile_image);
+        profileImageBg = findViewById(R.id.bg_prof_img);
+
         // txtView_stuRegNo = findViewById(R.id.txt_reg_no);
 
 
@@ -164,6 +180,17 @@ public class StudentTabbedActivity extends Activity {
                 claName = student.getString(KEY_CLA_NAME);
                 dob = student.getString(KEY_DOB);
                 regNo = student.getString(KEY_REG_NO);
+                stuImage = student.getString(KEY_STU_IMAGE);
+
+                //fetch image url from firebase
+                storageReference.child("/"+stuImage).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        // Got the download URL for 'users/me/profile.png'
+                        Glide.with(StudentTabbedActivity.this).load(uri).into(profileImage);
+                        Glide.with(StudentTabbedActivity.this).load(uri).into(profileImageBg);
+                    }
+                });
             }
         } catch (JSONException e) {
             e.printStackTrace();

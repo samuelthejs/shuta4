@@ -149,7 +149,8 @@ public class StudentListingActivity extends AppCompatActivity {
                         R.id.txt_mName, R.id.txt_lName,  R.id.txt_regNo, R.id.txt_class});
         // updating listview
         studentListView.setAdapter(studentListAdapter);
-      //  Call MovieUpdateDeleteActivity when a movie is clicked
+
+      //  Call StudentProfileActivity when a student is clicked
         studentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -169,35 +170,6 @@ public class StudentListingActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-
-    public boolean onCreateOptionMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu, menu);
-
-        SearchManager searchManager = (SearchManager)
-                getSystemService(Context.SEARCH_SERVICE);
-
-        searchMenuItem = menu.findItem(R.id.search);
-        searchView = (SearchView) searchMenuItem.getActionView();
-
-        searchView.setSearchableInfo(searchManager.
-                getSearchableInfo(getComponentName()));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                studentListAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return true;
     }
 
 }
