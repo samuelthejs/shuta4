@@ -112,7 +112,7 @@
         style="@android:style/Widget.Material.Light.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
+        android:text="Forgot your password"
         android:textAllCaps="false"
         android:textColor="#5298E9"
         android:textStyle="italic" />

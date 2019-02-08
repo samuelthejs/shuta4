@@ -1,6 +1,4 @@
 package com.example.davkimfray.shuta4;
-
-
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -65,9 +63,6 @@ public class StudentListingActivity extends AppCompatActivity {
             }
         });
         new FetchStudentAsyncTask().execute();
-
-
-
     }
 
     /**

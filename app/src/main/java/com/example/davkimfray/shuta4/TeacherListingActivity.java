@@ -74,7 +74,7 @@ public class TeacherListingActivity extends AppCompatActivity {
         btnStaffReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent regClass = new Intent(getApplicationContext(), SubjectRegistrationActivity.class);
+                Intent regClass = new Intent(getApplicationContext(), StaffRegistration.class);
                 startActivity(regClass);
             }
         });

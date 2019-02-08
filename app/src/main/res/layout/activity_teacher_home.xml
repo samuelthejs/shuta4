@@ -12,7 +12,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@mipmap/school_bg"
+        android:background="@mipmap/user_login_icon"
         android:gravity="left"
         android:orientation="horizontal">
 
