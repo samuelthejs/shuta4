@@ -107,7 +107,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registration Number"
+                android:text="Phone Number"
                 android:textSize="18sp" />
 
             <EditText
@@ -185,7 +185,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Class"
+                android:text="Class Teaching"
                 android:textSize="18sp" />
 
             <Spinner
